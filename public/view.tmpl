@@ -4,9 +4,10 @@
 </head>
 <body>
 <div>Album: {{ .albumName }}</div>
+<div><a href="/">Upload more photos.</a></div>
 <div>
 {{range .photoIDs}}
-      <li>{{.}}</li>
+      <img src="http://localhost:4572/mockallthethings-example/{{.}}"/>
 {{end}}
 </div>
 </body>

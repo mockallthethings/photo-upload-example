@@ -48,6 +48,7 @@ func NewClient() (Client, error) {
 	svc := s3.New(sess)
 	defaultBucket := "mockallthethings-example"
 	_, err := svc.CreateBucket(&CreateBucketInput{
+		ACL:    aws.String("public-read"),
 		Bucket: aws.String(defaultBucket),
 	})
 	if err != nil {

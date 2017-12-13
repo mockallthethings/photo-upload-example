@@ -16,7 +16,7 @@ func (h *handler) viewHandler(c *gin.Context) {
 
 	stmt, err := h.db.Prepare(`
 SELECT
-  photo_name
+  photo_id
 FROM photos.albums
 WHERE album_name = ?;`)
 	if err != nil {
@@ -31,15 +31,15 @@ WHERE album_name = ?;`)
 	}
 	defer rows.Close()
 
-	photoNames := make([]string, 0)
+	photoIDs := make([]string, 0)
 	for rows.Next() {
-		var photoName string
-		err := rows.Scan(&photoName)
+		var photoID string
+		err := rows.Scan(&photoID)
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-		photoNames = append(photoNames, photoName)
+		photoIDs = append(photoIDs, photoID)
 	}
 	if err = rows.Err(); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
@@ -47,7 +47,7 @@ WHERE album_name = ?;`)
 	}
 
 	c.HTML(http.StatusOK, "view.tmpl", gin.H{
-		"albumName":  albumName,
-		"photoNames": photoNames,
+		"albumName": albumName,
+		"photoIDs":  photoIDs,
 	})
 }

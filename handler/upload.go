@@ -24,6 +24,12 @@ func (h *handler) uploadHandler(c *gin.Context) {
 		return
 	}
 
+	photoID, err := uuid.NewRandom()
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	f, err := uploadedFile.Open()
 	fileName := uploadedFile.Filename
 	if err != nil {
@@ -31,9 +37,10 @@ func (h *handler) uploadHandler(c *gin.Context) {
 		return
 	}
 	defaultBucket := "mockallthethings-example"
+	idStr := photoID.String()
 	ui := &s3.UploadInput{
 		Bucket: &defaultBucket,
-		Key:    &fileName,
+		Key:    &idStr,
 		Body:   f,
 	}
 	_, err = h.S3.Upload(ui)
@@ -47,12 +54,6 @@ INSERT INTO photos.albums (
 	album_name,
 	photo_id
 ) VALUES (?, ?);`)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	photoID, err := uuid.NewRandom()
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
