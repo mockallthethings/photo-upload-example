@@ -6,16 +6,6 @@ You will need [docker-compose](https://docs.docker.com/compose/) to run
 this tutorial - if you are on a Mac, it should already be installed.
 If not, follow the instructions on Docker's website to install it.
 
-## OPTIONAL: Creating a Bucket for this Tutorial
-
-If you do not have an existing S3 bucket to use for this tutorial,
-you can create one like this (you will need the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
-set up first):
-
-```
-aws s3 mb s3://YOUR_BUCKET_NAME
-```
-
 # Starting the App
 
 Start the app with this command (must be run from the repository root):
@@ -24,8 +14,9 @@ Start the app with this command (must be run from the repository root):
 docker-compose up -d
 ```
 
-Wait a few seconds for everything to start up in the background (this could take up to one minute).
-Then visit the web page at `http://localhost:5000` in your browser.
+Then visit the web page at `http://localhost:5000` in your browser. If you see
+a loading message, wait a few seconds and then refresh the page. It should not
+take more than one minute to load.
 
 # Cleaning Up
 
