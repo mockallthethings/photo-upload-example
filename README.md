@@ -31,9 +31,5 @@ Then visit the web page at `http://localhost:5000` in your browser.
 Stop the app with this command (must be run from the repository root):
 
 ```
-docker-compose up -d
-```
-
-```
 docker-compose down
 ```
