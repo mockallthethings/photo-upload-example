@@ -1,0 +1,13 @@
+<html>
+<head>
+       <title>Photo Upload Example</title>
+</head>
+<body>
+<div>See how Mock All The Things can test this photo upload service with lightning speed!</div>
+<div>To begin, upload a photo:</div>
+<form enctype="multipart/form-data" action="http://{{ .host }}/upload" method="post">
+    <input type="file" name="uploadfile" />
+    <input type="submit" value="upload" />
+</form>
+</body>
+</html>
