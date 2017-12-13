@@ -24,6 +24,7 @@ Start the app with this command (must be run from the repository root):
 docker-compose up -d
 ```
 
+Wait a few seconds for everything to start up in the background (this could take up to one minute).
 Then visit the web page at `http://localhost:5000` in your browser.
 
 # Cleaning Up

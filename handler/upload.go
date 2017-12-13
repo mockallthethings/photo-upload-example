@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 
 	"github.com/gin-gonic/gin"
 )
@@ -44,5 +45,6 @@ INSERT INTO photos.albums (
 
 	c.HTML(http.StatusOK, "upload.tmpl", gin.H{
 		"fileName": fileName,
+		"albumURL": "/view?album=" + url.QueryEscape(albumName),
 	})
 }

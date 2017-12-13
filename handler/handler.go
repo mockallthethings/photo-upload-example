@@ -16,12 +16,10 @@ type Handler interface {
 
 func (h *handler) Run() {
 	r := gin.Default()
-	r.LoadHTMLFiles(
-		"public/index.tmpl",
-		"public/upload.tmpl",
-	)
+	r.LoadHTMLGlob("public/*.tmpl")
 	r.GET("/", h.indexHandler)
 	r.POST("/upload", h.uploadHandler)
+	r.GET("/view", h.viewHandler)
 	r.Run(":80")
 }
 

@@ -1,0 +1,13 @@
+<html>
+<head>
+       <title>Photo Upload Example</title>
+</head>
+<body>
+<div>Album: {{ .albumName }}</div>
+<div>
+{{range .photoNames}}
+      <li>{{.}}</li>
+{{end}}
+</div>
+</body>
+</html>

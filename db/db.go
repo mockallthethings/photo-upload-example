@@ -22,13 +22,13 @@ func OpenDB() (*sql.DB, error) {
 	// docker-compose does not support waiting for the db
 	// container to be ready, so we need to implement the wait
 	// here
-	nRetries := 3
+	nRetries := 10
 	for retryIdx := 0; retryIdx < nRetries; retryIdx += 1 {
 		err = db.Ping()
 		if err == nil {
 			break
 		}
-		time.Sleep(30 * time.Second)
+		time.Sleep(5 * time.Second)
 	}
 	return db, err
 }
