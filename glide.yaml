@@ -1,4 +1,4 @@
-package: code.invincibleinfra.internal/photo-upload-example
+package: github.com/mockallthethings/photo-upload-example
 import:
 - package: github.com/gin-gonic/gin
   version: ~1.2.0
