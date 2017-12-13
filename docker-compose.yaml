@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: mockallthethings/photo-upload-example
+    ports:
+     - "5000:80"
+  mysql:
+    image: "mysql:8.0.3"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true

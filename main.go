@@ -2,37 +2,17 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/mockallthethings/photo-upload-example/db"
+	"github.com/mockallthethings/photo-upload-example/handler"
 )
 
-func indexHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{
-		"host": c.Request.Host,
-	})
-}
-
-func uploadHandler(c *gin.Context) {
-	uploadedFile, err := c.FormFile("uploadedfile")
-	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-		return
-	}
-	fileName := uploadedFile.Filename
-	log.Printf("File named %v was successfully uploaded.", fileName)
-	c.HTML(http.StatusOK, "upload.tmpl", gin.H{
-		"fileName": fileName,
-	})
-}
-
 func main() {
-	r := gin.Default()
-	r.LoadHTMLFiles(
-		"public/index.tmpl",
-		"public/upload.tmpl",
-	)
-	r.GET("/", indexHandler)
-	r.POST("/upload", uploadHandler)
-	r.Run(":80")
+	db, err := db.OpenDB()
+	if err != nil {
+		log.Panicf("Could not start - error connecting to DB: %v", err)
+	}
+
+	h, err := handler.New(db)
+	h.Run()
 }
