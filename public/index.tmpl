@@ -6,8 +6,9 @@
 <div>See how Mock All The Things can test this photo upload service with lightning speed!</div>
 <div>To begin, upload a photo:</div>
 <form enctype="multipart/form-data" action="http://{{ .host }}/upload" method="post">
-    <input type="file" name="uploadedfile" />
-    <input type="submit" value="upload" />
+    Album Name: <input type="text" name="albumname" required/>
+    <input type="file" name="uploadedfile"/>
+    <input type="submit"/>
 </form>
 </body>
 </html>

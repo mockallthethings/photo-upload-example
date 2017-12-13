@@ -4,6 +4,11 @@ services:
     image: "mysql:8.0.3"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    command:
+      --init-file /setup.sql
+    volumes:
+      - ./setup.sql:/setup.sql
+
   web:
     image: mockallthethings/photo-upload-example
     ports:
