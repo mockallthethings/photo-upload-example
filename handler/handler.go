@@ -31,10 +31,13 @@ func Serve() error {
 	}
 	r.Use(h.loadingMiddleware)
 
-	r.LoadHTMLGlob("public/*.tmpl")
+	r.LoadHTMLGlob("/public/*.tmpl")
+	r.StaticFile("/styles/index.css", "/public/styles/index.css")
+
 	r.GET("/", h.indexHandler)
-	r.POST("/upload", h.uploadHandler)
-	r.GET("/view", h.viewHandler)
+	r.POST("/albums/create", h.createAlbumHandler)
+	r.POST("/album/:albumID/upload", h.uploadHandler)
+	r.GET("/album/:albumID/view", h.indexHandler)
 
 	// Start serving in background goroutine immediately
 	// so that we can show 'loading' while DB connection loads

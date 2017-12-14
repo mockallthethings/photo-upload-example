@@ -1,14 +1,49 @@
 <html>
 <head>
-       <title>Photo Upload Example</title>
+       <title>Photo Manager</title>
+       <link rel="stylesheet" href="/styles/index.css"/>
+ <script>
+ </script>
 </head>
 <body>
-<div>See how Mock All The Things can test this photo upload service with lightning speed!</div>
-<div>To begin, upload a photo:</div>
-<form enctype="multipart/form-data" action="/upload" method="post">
-    Album Name: <input type="text" name="albumname" required/>
-    <input type="file" name="uploadedfile" required/>
-    <input type="submit"/>
-</form>
+  <div class="container">
+    <h2>Photo Manager</h2>
+      <div class="intro">See how Mock All The Things can test this photo manager service with lightning speed!</div>
+    <div class="control-panel">
+        <form action="/albums/create" method="post">
+          <div class="control-panel-section">
+            <label>New Album Name:</label>
+              <input type="text" name="albumname" required/>
+              <input type="submit"/>
+          </div>
+        </form>
+      {{ if .albums }}
+      <div class="control-panel-section">
+        <label>Albums:</label>
+        <select onchange="window.location.href = '/album/' + this.value">
+          {{range .albums}}
+            <option value="{{.ID}}" {{ if eq .ID $.albumID }} selected="selected"{{end}}>{{.Name}}</option>
+          {{end}}
+        </select>
+      {{end}}
+      </div>
+      {{ if .showUploadForm }}
+        <form enctype="multipart/form-data" action="{{ .uploadURL }}" method="post">
+          <div class="control-panel-section">
+            <label>Upload a New Photo:</label>
+            <input type="file" name="uploadedfile" required/>
+            <input type="submit"/>
+          </div>
+        </form>
+      {{ end }}
+    </div>
+    <div class="album-content">
+      {{range .photoIDs}}
+      <div class="thumbnail">
+        <img src="http://localhost:4572/mockallthethings-example/{{.}}"/>
+      </div>
+      {{end}}
+    </div>
+  </div>
 </body>
 </html>

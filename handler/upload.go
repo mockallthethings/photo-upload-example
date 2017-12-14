@@ -1,10 +1,8 @@
 package handler
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -12,12 +10,7 @@ import (
 )
 
 func (h *handler) uploadHandler(c *gin.Context) {
-	albumName := c.PostForm("albumname")
-	if albumName == "" {
-		c.AbortWithError(http.StatusBadRequest, fmt.Errorf("Album name is required"))
-		return
-	}
-
+	albumID := c.Param("albumID")
 	uploadedFile, err := c.FormFile("uploadedfile")
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
@@ -50,8 +43,8 @@ func (h *handler) uploadHandler(c *gin.Context) {
 	}
 
 	stmt, err := h.db.Prepare(`
-INSERT INTO photos.albums (
-	album_name,
+INSERT INTO photos.fact_photo_album (
+	album_id,
 	photo_id
 ) VALUES (?, ?);`)
 	if err != nil {
@@ -60,7 +53,7 @@ INSERT INTO photos.albums (
 	}
 
 	_, err = stmt.Exec(
-		albumName,
+		albumID,
 		photoID,
 	)
 	if err != nil {
@@ -70,8 +63,5 @@ INSERT INTO photos.albums (
 
 	log.Printf("File named %v was successfully uploaded.", fileName)
 
-	c.HTML(http.StatusOK, "upload.tmpl", gin.H{
-		"fileName": fileName,
-		"albumURL": "/view?album=" + url.QueryEscape(albumName),
-	})
+	c.Redirect(http.StatusFound, "/album/"+albumID+"/view")
 }

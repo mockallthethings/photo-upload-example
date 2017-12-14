@@ -1,0 +1,51 @@
+.container {
+  font-family: sans-serif;
+  width: 500px;
+}
+
+.intro {
+  margin-bottom: 20px;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.control-panel-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+}
+
+.control-panel-section label {
+  color: #555;
+  font-weight: bold;
+  font-size: 1em;
+  margin-right: 25px;
+}
+
+.control-panel-section input {
+  margin-right: 5px;
+}
+
+.album-content {
+  display: flex;
+  flex-direction: flex-start;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  height: 50px;
+  padding: 2px;
+  border: solid blue 1px;
+}
+
+.thumbnail img {
+  max-height: 100%;
+  max-width: 100%;
+}
