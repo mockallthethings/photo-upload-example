@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mockallthethings/photo-upload-example/db"
@@ -23,7 +24,7 @@ func (h *handler) loadingMiddleware(c *gin.Context) {
 	}
 }
 
-func Serve() error {
+func Serve(port int) error {
 	// show a loading template while we wait for DB to load
 	r := gin.Default()
 	h := &handler{
@@ -42,7 +43,7 @@ func Serve() error {
 	// Start serving in background goroutine immediately
 	// so that we can show 'loading' while DB connection loads
 	go func() {
-		log.Fatal(r.Run(":80"))
+		log.Fatal(r.Run(":" + strconv.Itoa(port)))
 	}()
 
 	// wait for DB connection (or die if it takes too long)
