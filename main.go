@@ -8,12 +8,8 @@ import (
 )
 
 func main() {
-	portPtr := flag.Int("port", 0, "port on which to listen")
+	portPtr := flag.Int("port", 80, "port on which to listen")
 	flag.Parse()
-	if *portPtr == 0 {
-		flag.Usage()
-		return
-	}
 
 	err := handler.Serve(*portPtr)
 	if err != nil {
