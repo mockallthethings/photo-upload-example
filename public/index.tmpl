@@ -20,7 +20,7 @@
       {{ if .albums }}
       <div class="control-panel-section">
         <label>Albums:</label>
-        <select onchange="window.location.href = '/album/' + this.value">
+        <select onchange="window.location.href = '/album/' + this.value + '/view'">
           {{range .albums}}
             <option value="{{.ID}}" {{ if eq .ID $.albumID }} selected="selected"{{end}}>{{.Name}}</option>
           {{end}}
